@@ -9,21 +9,44 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-@interface MasterViewController ()
+#import "AddItemViewController.h"
+#import "Todo.h"
+#import "TodoCell.h"
 
-@property NSMutableArray *objects;
+@interface MasterViewController ()
+@property NSMutableArray *listOfTodos;
 @end
 
 @implementation MasterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    self.listOfTodos = [[NSMutableArray alloc]init];
+    Todo *todo = [[Todo alloc]init];
+    todo.title = @"cook";
+    todo.todoDescription = @"cook dinner tonight";
+    todo.priorityNumber = 1;
+    todo.isCompleted = NO;
+    
+    Todo *todo1 = [[Todo alloc]init];
+    todo1.title = @"dishes";
+    todo1.todoDescription = @"wash dishes";
+    todo1.priorityNumber = 2;
+    todo1.isCompleted = NO;
+    [self.listOfTodos addObject:todo1];
+    [self.listOfTodos addObject:todo];
+    
+    
+    
+    
+    
 }
 
 
@@ -40,12 +63,15 @@
 
 
 - (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
+    
+    [self performSegueWithIdentifier:@"createNew" sender:self];
+    
+    if (!self.listOfTodos) {
+        self.listOfTodos = [[NSMutableArray alloc] init];
     }
-    [self.objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    [self.listOfTodos insertObject:[NSDate date] atIndex:0];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 
@@ -54,14 +80,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        Todo *object = self.listOfTodos[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
+    else if ([[segue identifier] isEqualToString:@"createNew"]) {
+        AddItemViewController *at = (AddItemViewController *)[segue destinationViewController];
+    }
 }
-
 
 #pragma mark - Table View
 
@@ -71,15 +99,16 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return self.listOfTodos.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    TodoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TodoCell" forIndexPath:indexPath];
 
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    Todo *object = self.listOfTodos[indexPath.row];
+    cell.cellTitle.text = object.title;
+    
     return cell;
 }
 
@@ -92,7 +121,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.objects removeObjectAtIndex:indexPath.row];
+        [self.listOfTodos removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

@@ -14,6 +14,9 @@
 		1F9903CF1DDB97C600337F80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9903CD1DDB97C600337F80 /* Main.storyboard */; };
 		1F9903D11DDB97C600337F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9903D01DDB97C600337F80 /* Assets.xcassets */; };
 		1F9903D41DDB97C600337F80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9903D21DDB97C600337F80 /* LaunchScreen.storyboard */; };
+		1F9903DD1DDB97FB00337F80 /* Todo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9903DC1DDB97FB00337F80 /* Todo.m */; };
+		1F9903E01DDBA75F00337F80 /* TodoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9903DF1DDBA75F00337F80 /* TodoCell.m */; };
+		1F9903E31DDBB9A200337F80 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9903E21DDBB9A200337F80 /* AddItemViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,12 @@
 		1F9903D01DDB97C600337F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F9903D31DDB97C600337F80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F9903D51DDB97C600337F80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F9903DB1DDB97FB00337F80 /* Todo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Todo.h; sourceTree = "<group>"; };
+		1F9903DC1DDB97FB00337F80 /* Todo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Todo.m; sourceTree = "<group>"; };
+		1F9903DE1DDBA75F00337F80 /* TodoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoCell.h; sourceTree = "<group>"; };
+		1F9903DF1DDBA75F00337F80 /* TodoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoCell.m; sourceTree = "<group>"; };
+		1F9903E11DDBB9A200337F80 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
+		1F9903E21DDBB9A200337F80 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,12 +70,18 @@
 		1F9903C01DDB97C600337F80 /* Every.Do */ = {
 			isa = PBXGroup;
 			children = (
+				1F9903DB1DDB97FB00337F80 /* Todo.h */,
+				1F9903DC1DDB97FB00337F80 /* Todo.m */,
+				1F9903DE1DDBA75F00337F80 /* TodoCell.h */,
+				1F9903DF1DDBA75F00337F80 /* TodoCell.m */,
 				1F9903C41DDB97C600337F80 /* AppDelegate.h */,
 				1F9903C51DDB97C600337F80 /* AppDelegate.m */,
 				1F9903C71DDB97C600337F80 /* MasterViewController.h */,
 				1F9903C81DDB97C600337F80 /* MasterViewController.m */,
 				1F9903CA1DDB97C600337F80 /* DetailViewController.h */,
 				1F9903CB1DDB97C600337F80 /* DetailViewController.m */,
+				1F9903E11DDBB9A200337F80 /* AddItemViewController.h */,
+				1F9903E21DDBB9A200337F80 /* AddItemViewController.m */,
 				1F9903CD1DDB97C600337F80 /* Main.storyboard */,
 				1F9903D01DDB97C600337F80 /* Assets.xcassets */,
 				1F9903D21DDB97C600337F80 /* LaunchScreen.storyboard */,
@@ -155,8 +170,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9903DD1DDB97FB00337F80 /* Todo.m in Sources */,
 				1F9903C61DDB97C600337F80 /* AppDelegate.m in Sources */,
+				1F9903E31DDBB9A200337F80 /* AddItemViewController.m in Sources */,
 				1F9903C91DDB97C600337F80 /* MasterViewController.m in Sources */,
+				1F9903E01DDBA75F00337F80 /* TodoCell.m in Sources */,
 				1F9903C31DDB97C600337F80 /* main.m in Sources */,
 				1F9903CC1DDB97C600337F80 /* DetailViewController.m in Sources */,
 			);
