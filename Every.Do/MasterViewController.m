@@ -82,9 +82,6 @@
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
-    else if ([[segue identifier] isEqualToString:@"createNew"]) {
-        AddItemViewController *at = (AddItemViewController *)[segue destinationViewController];
-    }
 }
 
 #pragma mark - Table View
@@ -104,14 +101,14 @@
 
     Todo *object = self.listOfTodos[indexPath.row];
     
-    if (object.isCompleted == YES) {
-    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:object.title];
-    [attributeString addAttribute:NSStrikethroughStyleAttributeName
-                            value:@2
-                            range:NSMakeRange(0, [attributeString length])];
-    }else{
+//    if (object.isCompleted == YES) {
+//    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:object.title];
+//    [attributeString addAttribute:NSStrikethroughStyleAttributeName
+//                            value:@2
+//                            range:NSMakeRange(0, [attributeString length])];
+//    }else{
     cell.cellTitle.text = object.title;
-    }
+//    }
     return cell;
 }
 
