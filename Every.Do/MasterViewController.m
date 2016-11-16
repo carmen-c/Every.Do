@@ -13,7 +13,7 @@
 #import "Todo.h"
 #import "TodoCell.h"
 
-@interface MasterViewController () 
+@interface MasterViewController () <UITableViewDelegate>
 @property NSMutableArray *listOfTodos;
 @end
 
@@ -29,6 +29,7 @@
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     self.listOfTodos = [[NSMutableArray alloc]init];
+    
     Todo *todo = [[Todo alloc]init];
     todo.title = @"cook";
     todo.todoDescription = @"cook dinner tonight";
@@ -54,11 +55,15 @@
     [super viewWillAppear:animated];
 }
 
-- (IBAction)swipeGesture:(id)sender {
-    
-}
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+#pragma mark - Button Stuffs
+
+- (IBAction)swipeGesture:(UISwipeGestureRecognizer*)sender {
+    CGPoint location = [sender locationInView:self.tableView];
+    NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:location];
+    
+    [self.tableView moveRowAtIndexPath:swipedIndexPath toIndexPath:[NSIndexPath indexPathForRow:self.listOfTodos.count -1 inSection:0]];
+    
 }
 
 - (void)insertNewObject:(id)sender {
@@ -98,11 +103,17 @@
     TodoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TodoCell" forIndexPath:indexPath];
 
     Todo *object = self.listOfTodos[indexPath.row];
-    cell.cellTitle.text = object.title;
     
+    if (object.isCompleted == YES) {
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:object.title];
+    [attributeString addAttribute:NSStrikethroughStyleAttributeName
+                            value:@2
+                            range:NSMakeRange(0, [attributeString length])];
+    }else{
+    cell.cellTitle.text = object.title;
+    }
     return cell;
 }
-
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
@@ -117,9 +128,11 @@
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
+    
 }
 
-
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+}
 
 
 #pragma mark - Notification
