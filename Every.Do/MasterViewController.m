@@ -13,7 +13,7 @@
 #import "Todo.h"
 #import "TodoCell.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () 
 @property NSMutableArray *listOfTodos;
 @end
 
@@ -54,23 +54,15 @@
     [super viewWillAppear:animated];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)swipeGesture:(id)sender {
+    
 }
 
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+}
 
 - (void)insertNewObject:(id)sender {
-    
     [self performSegueWithIdentifier:@"createNew" sender:self];
-    
-    if (!self.listOfTodos) {
-        self.listOfTodos = [[NSMutableArray alloc] init];
-    }
-//    [self.listOfTodos insertObject:[NSDate date] atIndex:0];
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 
@@ -128,12 +120,18 @@
 }
 
 
+
+
 #pragma mark - Notification
 
 -(void)textInputted:(NSNotification *)notification{
     Todo *additem = [notification.userInfo objectForKey:@"textInput"];
     
-    [self.listOfTodos insertObject:additem atIndex:0];
+    if (additem.priorityNumber == 1) {
+        [self.listOfTodos insertObject:additem atIndex:0];
+    }else {
+        [self.listOfTodos addObject:additem];
+    }
     [self.tableView reloadData];
 }
 
