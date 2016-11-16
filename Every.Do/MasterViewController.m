@@ -43,9 +43,8 @@
     [self.listOfTodos addObject:todo1];
     [self.listOfTodos addObject:todo];
     
-    
-    
-    
+    //NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputted:) name:@"textInputed" object:nil];
     
 }
 
@@ -128,5 +127,18 @@
     }
 }
 
+
+#pragma mark - Notification
+
+-(void)textInputted:(NSNotification *)notification{
+    Todo *additem = [notification.userInfo objectForKey:@"textInput"];
+    
+    [self.listOfTodos insertObject:additem atIndex:0];
+    [self.tableView reloadData];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

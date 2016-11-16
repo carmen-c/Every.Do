@@ -38,11 +38,11 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField.tag == 1) {
-        self.titleTextField.text = textField.text;
+        self.todo.title = textField.text;
     }else if (textField.tag == 2) {
-        self.priorityTextField.text = textField.text;
+        self.todo.priorityNumber = [textField.text intValue];
     }else if (textField.tag == 3) {
-        self.descriptionTextField.text = textField.text;
+        self.todo.todoDescription = textField.text;
     }
 }
 
@@ -53,9 +53,10 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.todo, @"textInput", nil];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    NSNotification *notify = [[NSNotification alloc]initWithName:@"textInputted" object:sender userInfo:dictionary];
+    NSNotification *notify = [[NSNotification alloc]initWithName:@"textInputed" object:sender userInfo:dictionary];
     
     [notificationCenter postNotification:notify];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /*
